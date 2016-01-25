@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+#main {
+  width: 70%;
+  margin: auto;
+}
+
+
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.navlink {
+    float: left;
+}
+
+
+#navbar li:first-child {
+   margin-left: 50px;
+}
+
+
+
+.navlink a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.navlink a:hover {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+
+
+
+#definition {
+  width: 400px;
+}
+
+#term {
+  text-align: center;
+}
+
+.display-term {
+  display: inline-block;
+}
+
+.delete {
+  -moz-box-shadow:inset 0px 39px 0px -24px #e67a73;
+  -webkit-box-shadow:inset 0px 39px 0px -24px #e67a73;
+  box-shadow:inset 0px 39px 0px -24px #e67a73;
+  background-color:#e4685d;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  border-radius:4px;
+  border:1px solid #ffffff;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:15px;
+  padding:0px 15px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #b23e35;
+  margin-left: 30px;
+}
+
+.delete:hover {
+  background-color:#eb675e;
+}
+
+
+.var {
+  color: blue;
+}
+
+.term {
+  color: green;
+}
+
+.equals-sign {
+  color: pink;
+}
+
+.definition {
+  color: purple;
+}
+
+.undefined {
+  color: grey;
+}
+
+
+
+
