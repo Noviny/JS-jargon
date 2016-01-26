@@ -7,17 +7,17 @@ var application_root = __dirname,
 	mongoose = require( 'mongoose' ); //MongoDB integration
  
 
-var config = require('./config.json')
+// var config = require('./info/exclude/config.json') || undefined
 
 // Twittery bits
-var Twitter = require('twitter');
+// var Twitter = require('twitter');
 
-var client = new Twitter({
-  consumer_key: 'config.consumer_key',
-  consumer_secret: 'config.consumer_secret',
-  access_token_key: 'config.access_token_key',
-  access_token_secret: 'config.access_token_secret'
-});
+// var client = new Twitter({
+//   consumer_key: 'config.consumer_key',
+//   consumer_secret: 'config.consumer_secret',
+//   access_token_key: 'config.access_token_key',
+//   access_token_secret: 'config.access_token_secret'
+// });
 
 
 //Create server
@@ -71,7 +71,7 @@ app.get( '/api', function( request, response ) {
 
 
 app.get('/twitter', function( request, response ) {
-	console.log(config.consumer_secret)
+	// console.log(config.consumer_secret)
 });
 
 // app.post('/twitter', function( request, response ) {
@@ -134,12 +134,12 @@ app.post( '/api/jargon', function( request, response ) {
 	});
 	jargon.save( function( err ) {
 		if( !err ) {
-			var twit = request.body.term + " = " + request.body.definition
-		client.post('statuses/update', {status: twit}, function(error, tweet, response){
-		  if (!error) {
-		    console.log(tweet);
-			 }
-		});
+		// 	var twit = request.body.term + " = " + request.body.definition
+		// client.post('statuses/update', {status: twit}, function(error, tweet, response){
+		//   if (!error) {
+		//     console.log(tweet);
+		// 	 }
+		// });
 		return console.log( 'created' );
 		} else {
 			return console.log( err );
@@ -155,12 +155,12 @@ app.post( '/api/request', function ( req, resp ) {
 	});
 	request.save( function( err ) {
 		if( !err ) {
-			var twit = "Can you define " + req.body.term + "?" + "  LINK WILL HERE BE"
-		client.post('statuses/update', {status: twit}, function(error, tweet, response){
-		  if (!error) {
-		    console.log(tweet);
-			 }
-		});
+		// 	var twit = "Can you define " + req.body.term + "?" + "  LINK WILL HERE BE"
+		// client.post('statuses/update', {status: twit}, function(error, tweet, response){
+		//   if (!error) {
+		//     console.log(tweet);
+		// 	 }
+		// });
 		return console.log( 'created' );
 		} else {
 			return console.log( err );
