@@ -24,8 +24,7 @@ var application_root = __dirname,
 var app = express();
 
 //Connect to database
-mongoose.connect( 'mongodb://heroku_t7nw9cf2:ojfbj4nj04s1vtu0uvadv5e27c@ds045001.mongolab.com:45001/heroku_t7nw9cf2
-' );
+mongoose.connect( 'mongodb://heroku_t7nw9cf2:ojfbj4nj04s1vtu0uvadv5e27c@ds045001.mongolab.com:45001/heroku_t7nw9cf2' );
 
 //Schemas
 
