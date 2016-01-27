@@ -1,6 +1,8 @@
 var app = app || {};
 
 
-$(function() {
-  new app.AllRequestsView();
+$(document).ready(function () {
+  new app.DictionaryView();
+
+  app.router = new app.AppRouter();
 });

@@ -2,9 +2,9 @@
 
 // Module dependencies.
 var application_root = __dirname,
-	express = require( 'express' ), //Web framework
-	path = require( 'path' ), //Utilities for dealing with file paths
-	mongoose = require( 'mongoose' ); //MongoDB integration
+  express = require( 'express' ), //Web framework
+  path = require( 'path' ), //Utilities for dealing with file paths
+  mongoose = require( 'mongoose' ); //MongoDB integration
  
 
 // var config = require('./info/exclude/config.json') || undefined
@@ -23,22 +23,27 @@ var application_root = __dirname,
 //Create server
 var app = express();
 
+var mode   = process.env.NODE_ENV;
+// if (mode === "")
 //Connect to database
-mongoose.connect( 'mongodb://heroku_t7nw9cf2:ojfbj4nj04s1vtu0uvadv5e27c@ds045001.mongolab.com:45001/heroku_t7nw9cf2' );
+// mongoose.connect( 'mongodb://heroku_t7nw9cf2:ojfbj4nj04s1vtu0uvadv5e27c@ds045001.mongolab.com:45001/heroku_t7nw9cf2' );
+mongoose.connect( 'mongodb://localhost/jargon_database' );
+
+
 
 //Schemas
 
 // Just added Jargon model
 var Jargon = new mongoose.Schema({
-	term: String,
-	definition: String,
-	status: String,
+  term: String,
+  definition: String,
+  status: String,
 });
 
 var Request = new mongoose.Schema({
-	term: String,
-	definition: String,
-	tweet_at: String
+  term: String,
+  definition: String,
+  tweet_at: String
 });
 
 //Models
@@ -48,167 +53,171 @@ var RequestModel = mongoose.model( 'Request', Request );
 
 // Configure server
 app.configure( function() {
-	//parses request body and populates request.body
-	app.use( express.bodyParser() );
+  //parses request body and populates request.body
+  app.use( express.bodyParser() );
 
-	//checks request.body for HTTP method overrides
-	app.use( express.methodOverride() );
+  //checks request.body for HTTP method overrides
+  app.use( express.methodOverride() );
 
-	//perform route lookup based on url and HTTP method
-	app.use( app.router );
+  //perform route lookup based on url and HTTP method
+  app.use( app.router );
 
-	//Where to serve static content
-	app.use( express.static( path.join( application_root, 'site') ) );
+  //Where to serve static content
+  app.use( express.static( path.join( application_root, 'site') ) );
 
-	//Show all errors in development
-	app.use( express.errorHandler({ dumpExceptions: true, showStack: true }));
+  //Show all errors in development
+  app.use( express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 // Routes
 app.get( '/api', function( request, response ) {
-	response.send( 'Jargon API is running' );
+  response.send( 'Jargon API is running' );
 });
 
 
+// app.get( '/undefined', function( request, response ) {
+// 	response.sendFile('/undefined.html')
+// });
+
 app.get('/twitter', function( request, response ) {
-	// console.log(config.consumer_secret)
+  // console.log(config.consumer_secret)
 });
 
 // app.post('/twitter', function( request, response ) {
-// 	client.post('statuses/update', {status: 'I am a tweet'}, function(error, tweet, response){
+//  client.post('statuses/update', {status: 'I am a tweet'}, function(error, tweet, response){
 //   if (!error) {
 //     console.log(tweet);
-// 	  }
-// 	});
+//    }
+//  });
 // });
 
 
 //Get a list of all books
 app.get( '/api/jargon', function ( request, response ) {
-	return JargonModel.find( function ( err, jargon ) {
-		if( !err ) {
-			return response.send( jargon );
-		} else {
-			return console.log( err );
-		}
-	});
+  return JargonModel.find( function ( err, jargon ) {
+    if( !err ) {
+      return response.send( jargon );
+    } else {
+      return console.log( err );
+    }
+  });
 });
 
 app.get( '/api/request', function ( req, resp ) {
-	return RequestModel.find( function ( err, request ) {
-				if( !err ) {
-			return resp.send( request );
-		} else {
-			return console.log( err );
-		}
-	})
+  return RequestModel.find( function ( err, request ) {
+        if( !err ) {
+      return resp.send( request );
+    } else {
+      return console.log( err );
+    }
+  })
 });
 
 //Get a single book by id
 app.get( '/api/jargon/:id', function( request, response ) {
-	return JargonModel.findById( request.params.id, function( err, jargon ) {
-		if( !err ) {
-			return response.send( jargon );
-		} else {
-			return console.log( err );
-		}
-	});
+  return JargonModel.findById( request.params.id, function( err, jargon ) {
+    if( !err ) {
+      return response.send( jargon );
+    } else {
+      return console.log( err );
+    }
+  });
 });
 
 app.get( '/api/request/:id', function ( req, resp ) {
-	return RequestModel.findById( request.params.id, function ( err, request ) {
-		if( !err ) {
-			return response.send( jargon );
-		} else {
-			return console.log( err );
-		}
-	})
+  return RequestModel.findById( request.params.id, function ( err, request ) {
+    if( !err ) {
+      return response.send( jargon );
+    } else {
+      return console.log( err );
+    }
+  })
 })
 
 
 //Insert a new book
 app.post( '/api/jargon', function( request, response ) {
-	var jargon = new JargonModel({
-		term: request.body.term,
-		definition: request.body.definition,
-	});
-	jargon.save( function( err ) {
-		if( !err ) {
-		// 	var twit = request.body.term + " = " + request.body.definition
-		// client.post('statuses/update', {status: twit}, function(error, tweet, response){
-		//   if (!error) {
-		//     console.log(tweet);
-		// 	 }
-		// });
-		return console.log( 'created' );
-		} else {
-			return console.log( err );
-		}
-		return response.send( jargon );
-	});
+  var jargon = new JargonModel({
+    term: request.body.term,
+    definition: request.body.definition,
+  });
+  jargon.save( function( err ) {
+    if( !err ) {
+    //  var twit = request.body.term + " = " + request.body.definition
+    // client.post('statuses/update', {status: twit}, function(error, tweet, response){
+    //   if (!error) {
+    //     console.log(tweet);
+    //   }
+    // });
+    return console.log( 'created' );
+    } else {
+      return console.log( err );
+    }
+    return response.send( jargon );
+  });
 });
 
 app.post( '/api/request', function ( req, resp ) {
-	var request = new RequestModel({
-		term: req.body.term,
-		tweet_at: req.body.twitterhandle
-	});
-	request.save( function( err ) {
-		if( !err ) {
-		// 	var twit = "Can you define " + req.body.term + "?" + "  LINK WILL HERE BE"
-		// client.post('statuses/update', {status: twit}, function(error, tweet, response){
-		//   if (!error) {
-		//     console.log(tweet);
-		// 	 }
-		// });
-		return console.log( 'created' );
-		} else {
-			return console.log( err );
-		}
-		return response.send( jargon );
-	})
+  var request = new RequestModel({
+    term: req.body.term,
+    tweet_at: req.body.twitterhandle
+  });
+  request.save( function( err ) {
+    if( !err ) {
+    //  var twit = "Can you define " + req.body.term + "?" + "  LINK WILL HERE BE"
+    // client.post('statuses/update', {status: twit}, function(error, tweet, response){
+    //   if (!error) {
+    //     console.log(tweet);
+    //   }
+    // });
+    return console.log( 'created' );
+    } else {
+      return console.log( err );
+    }
+    return response.send( jargon );
+  })
 });
 
 //Update a book
 app.put( '/api/jargon/:id', function( request, response ) {
-	console.log( 'Updating jargon ' + request.body.term );
-	return JargonModel.findById( request.params.id, function( err, jargon ) {
-		jargon.term = request.body.jargon;
-		jargon.definition = request.body.definition;
+  console.log( 'Updating jargon ' + request.body.term );
+  return JargonModel.findById( request.params.id, function( err, jargon ) {
+    jargon.term = request.body.jargon;
+    jargon.definition = request.body.definition;
 
 
-		return jargon.save( function( err ) {
-			if( !err ) {
-				console.log( 'book updated' );
-			} else {
-				console.log( err );
-			}
-			return response.send( jargon );
-		});
-	});
+    return jargon.save( function( err ) {
+      if( !err ) {
+        console.log( 'book updated' );
+      } else {
+        console.log( err );
+      }
+      return response.send( jargon );
+    });
+  });
 });
 
 app.post( '/api/define', function(req, resp) {
-	console.log(req)
+  console.log(req)
 })
 
 //Delete a book
 app.delete( '/api/jargon/:id', function( request, response ) {
-	console.log( 'Deleting jargon with id: ' + request.params.id );
-	return JargonModel.findById( request.params.id, function( err, jargon ) {
-		return jargon.remove( function( err ) {
-			if( !err ) {
-				console.log( 'Jargon removed' );
-				return response.send( '' );
-			} else {
-				console.log( err );
-			}
-		});
-	});
+  console.log( 'Deleting jargon with id: ' + request.params.id );
+  return JargonModel.findById( request.params.id, function( err, jargon ) {
+    return jargon.remove( function( err ) {
+      if( !err ) {
+        console.log( 'Jargon removed' );
+        return response.send( '' );
+      } else {
+        console.log( err );
+      }
+    });
+  });
 });
 
 //Start server
 var port = process.env.PORT || 3000;
 app.listen( port, function() {
-	console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
+  console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
 });

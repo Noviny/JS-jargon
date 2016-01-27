@@ -5,8 +5,9 @@ app.DictionaryView = Backbone.View.extend({
 
     initialize: function() {
         this.collection = new app.Dictionary();
+        var view = this
         this.collection.fetch({ success: function () {
-            this.render();
+            view.render();
         }});
 
         this.listenTo( this.collection, 'add', this.renderJargon );
