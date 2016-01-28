@@ -113,14 +113,13 @@ app.get('/twitter', function( request, response ) {
 
 //Get a list of all books
 app.get( '/api/jargon', function ( request, response ) {
-  return response.send({})
-  // return JargonModel.find( function ( err, jargon ) {
-  //   if( !err ) {
-  //     return response.send( jargon );
-  //   } else {
-  //     return console.log( err );
-  //   }
-  // });
+  return JargonModel.find( function ( err, jargon ) {
+    if( !err ) {
+      return response.send( jargon );
+    } else {
+      return console.log( err );
+    }
+  });
 });
 
 app.get( '/api/request', function ( req, resp ) {
