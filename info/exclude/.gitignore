@@ -1,0 +1,6 @@
+# Private twitter info
+/info/exclude/config.json
+
+/package.json
+
+/info
