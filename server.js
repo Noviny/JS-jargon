@@ -27,12 +27,12 @@ var mode   = process.env.NODE_ENV;
 
 
 //Connect to database
-if (mode === undefined) {
-	mongoose.connect( 'mongodb://localhost/jargon_database' );
+// if (mode === undefined) {
+// 	mongoose.connect( 'mongodb://localhost/jargon_database' );
 
-} else {
+// } else {
 	mongoose.connect( 'mongodb://heroku_t7nw9cf2:ojfbj4nj04s1vtu0uvadv5e27c@ds045001.mongolab.com:45001/heroku_t7nw9cf2' );
-}
+// }
 
 
 
