@@ -62,7 +62,7 @@ app.DictionaryView = Backbone.View.extend({
     render: function() {
         console.log("in the render function")
         this.collection.each(function( item ) {
-            console.log(item)
+            // console.log(item)
             this.renderJargon( item );
         }, this );
     },

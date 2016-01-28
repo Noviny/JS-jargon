@@ -7,17 +7,17 @@ var application_root = __dirname,
   mongoose = require( 'mongoose' ); //MongoDB integration
  
 
-// var config = require('./info/exclude/config.json') || undefined
+var config = require('./info/exclude/config.json')
 
 // Twittery bits
-// var Twitter = require('twitter');
+var Twitter = require('twitter');
 
-// var client = new Twitter({
-//   consumer_key: 'config.consumer_key',
-//   consumer_secret: 'config.consumer_secret',
-//   access_token_key: 'config.access_token_key',
-//   access_token_secret: 'config.access_token_secret'
-// });
+var client = new Twitter({
+  consumer_key: config.consumer_key,
+  consumer_secret: config.consumer_secret,
+  access_token_key: config.access_token_key,
+  access_token_secret: config.access_token_secret
+});
 
 
 //Create server
@@ -99,16 +99,19 @@ app.get( '/api', function( request, response ) {
 // });
 
 app.get('/twitter', function( request, response ) {
-  // console.log(config.consumer_secret)
+  response.send( config.consumer_key )
 });
 
-// app.post('/twitter', function( request, response ) {
-//  client.post('statuses/update', {status: 'I am a tweet'}, function(error, tweet, response){
-//   if (!error) {
-//     console.log(tweet);
-//    }
-//  });
-// });
+app.post('/twitter', function( request, response ) {
+  console.log('the request is ', request.body.tweet)
+  client.post('statuses/update', {status: request.body.tweet }, function(error, tweet, response){
+  if (!error) {
+    console.log(tweet);
+   } else {
+    console.log(error)
+   }
+ });
+});
 
 
 //Get a list of all books
@@ -162,12 +165,6 @@ app.post( '/api/jargon', function( request, response ) {
   });
   jargon.save( function( err ) {
     if( !err ) {
-    //  var twit = request.body.term + " = " + request.body.definition
-    // client.post('statuses/update', {status: twit}, function(error, tweet, response){
-    //   if (!error) {
-    //     console.log(tweet);
-    //   }
-    // });
     return console.log( 'created' );
     } else {
       return console.log( err );
@@ -183,12 +180,12 @@ app.post( '/api/request', function ( req, resp ) {
   });
   request.save( function( err ) {
     if( !err ) {
-    //  var twit = "Can you define " + req.body.term + "?" + "  LINK WILL HERE BE"
-    // client.post('statuses/update', {status: twit}, function(error, tweet, response){
-    //   if (!error) {
-    //     console.log(tweet);
-    //   }
-    // });
+     var twit = "Can you define " + req.body.term + "?" + "  LINK WILL HERE BE"
+    client.post('statuses/update', {status: twit}, function(error, tweet, response){
+      if (!error) {
+        console.log(tweet);
+      }
+    });
     return console.log( 'created' );
     } else {
       return console.log( err );
@@ -228,6 +225,20 @@ app.delete( '/api/jargon/:id', function( request, response ) {
       if( !err ) {
         console.log( 'Jargon removed' );
         return response.send( '' );
+      } else {
+        console.log( err );
+      }
+    });
+  });
+});
+
+app.delete( '/api/request/:id', function ( req, resp ) {
+  console.log( 'Deleting request with id: ' + req.params.id );
+  return RequestModel.findById( req.params.id, function( err, request ) {
+    return request.remove( function( err ) {
+      if( !err ) {
+        console.log( 'request removed' );
+        return resp.send( '' );
       } else {
         console.log( err );
       }

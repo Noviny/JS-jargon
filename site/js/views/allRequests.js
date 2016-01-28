@@ -28,28 +28,34 @@ app.AllRequestsView = Backbone.View.extend({
       }, this );
   },
 
-    addJargonFromRequest: function (e) {
-      e.preventDefault()
-      //Need to be able to refer to the current dictionary here...
+
+
+//This should probably be moved into defineRequest.js
+    // addJargonFromRequest: function (e) {
+    //   e.preventDefault()
+    //   //Need to be able to refer to the current dictionary here...
+
+    //   console.log("this is ", this)
+
+    //   this.collection = new app.Dictionary();
+    //   dictionary = this.collection
+    //   this.collection.fetch({ success: function () {
+    //         console.log("addingTerm")
+    //         dictionary.create({ 'term': 'GRABTERM', 'definition': "GRABDEF" })
+    //     }});
+    //   console.log("JARGON DEFINE")
+    // },
 
 
 
-      this.collection = new app.Dictionary();
-      dictionary = this.collection
-      this.collection.fetch({ success: function () {
-            console.log("addingTerm")
-            dictionary.create({ 'term': 'GRABTERM', 'definition': "GRABDEF" })
-        }});
-      console.log("JARGON DEFINE")
-    },
 
   renderRequest: function( item ) {
-    console.log(item)
+    // console.log(item)
     var requestView = new app.DefineRequestView({
       model: item
     })
     thing = requestView
-    console.log(thing)
+    // console.log(thing)
     this.$el.append( requestView.render() );
   }
 
