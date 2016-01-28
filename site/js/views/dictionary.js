@@ -7,10 +7,11 @@ app.DictionaryView = Backbone.View.extend({
         this.collection = new app.Dictionary();
         var view = this
         this.collection.fetch({ success: function () {
+            console.log("rendering")
             view.render();
         }});
 
-        this.listenTo( this.collection, 'add', this.renderJargon );
+        // this.listenTo( this.collection, 'add', this.renderJargon );
         this.listenTo( this.collection, 'reset', this.render );
     },
 
@@ -59,7 +60,9 @@ app.DictionaryView = Backbone.View.extend({
 
     // render library by rendering each book in its collection
     render: function() {
+        console.log("in the render function")
         this.collection.each(function( item ) {
+            console.log(item)
             this.renderJargon( item );
         }, this );
     },

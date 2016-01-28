@@ -24,10 +24,15 @@ var application_root = __dirname,
 var app = express();
 
 var mode   = process.env.NODE_ENV;
-// if (mode === "")
+
+
 //Connect to database
-mongoose.connect( 'mongodb://heroku_t7nw9cf2:ojfbj4nj04s1vtu0uvadv5e27c@ds045001.mongolab.com:45001/heroku_t7nw9cf2' );
-// mongoose.connect( 'mongodb://localhost/jargon_database' );
+if (mode === undefined) {
+	mongoose.connect( 'mongodb://localhost/jargon_database' );
+
+} else {
+	mongoose.connect( 'mongodb://heroku_t7nw9cf2:ojfbj4nj04s1vtu0uvadv5e27c@ds045001.mongolab.com:45001/heroku_t7nw9cf2' );
+}
 
 
 
@@ -217,7 +222,7 @@ app.delete( '/api/jargon/:id', function( request, response ) {
 });
 
 //Start server
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4711;
 app.listen( port, function() {
   console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
 });

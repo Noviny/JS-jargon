@@ -52,17 +52,36 @@
 
 <script id="jargonTemplate" type="text/template">
   <div class="defined-term">
-  <p class="display-term"><span class="var">var</span> <span class="term"><%= term %></span> <span class="equals-sign">=</span> <span class="definition"><%= definition %></span></p><button id="<%= _id %>" class="delete">Remove</button>
+  <p class="display-term"><span class="var">var</span> <span class="term"><%= term %></span> <span class="equals-sign">=</span> <span class="definition"><%= definition %></span></p><button id="<%= _id %>" class="refine">Refine</button>
   </div>
 </script>
 
 <script id="addTemplate" type="text/template">
-  <div class="defining-term">
-    <%= term %>
-  </div>
+
+
+    <form class="jargonFromRequest" action="/api/jargon" method="post">
+      <div>
+          <label for="term"><span class="var">var</span>  </label><span class="term"><%= term %></span>
+          <label for="definition">  <span class="equals-sign">=</span>  </label><input id="definition" name="definition" type="text" />
+          <button id="define">Define</button>
+      </div>
+  </form>
 </script>
 
 <!--     <p class="display-term"><span class="var">var</span> <span class="term"><%= term %></span> <span class="equals-sign">=</span> <span class="definition"><input type="text" class="define"></span></p><button id="<%= _id %>" class="refine">Define</button> -->
+
+<!--   // <div class="defining-term">
+  //   <p class="display-term"><span class="var">var</span> <span class="term"><%= term %></span> <span class="equals-sign">=</span><input id="definition" name="definition" type="text" /><button id="define">Define</button>
+  // </div> -->
+
+
+<!--   <form id="addJargon" action="/api/jargon" method="post">
+      <div>
+          <label for="term"><span class="var">var</span>  </label><span class="term"><%= term %></span>
+          <label for="definition">  <span class="equals-sign">=</span>  </label><input id="definition" name="definition" type="text" />
+          <button id="add">Add</button>
+      </div>
+  </form> -->
 
 
 

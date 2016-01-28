@@ -4,7 +4,7 @@ var app = app || {};
 app.AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
-    '/#undefined' : 'viewUndefined'
+    'undefined' : 'viewUndefined'
   },
 
   index: function () {
@@ -12,8 +12,8 @@ app.AppRouter = Backbone.Router.extend({
   },
 
   viewUndefined: function () {
-    console.log("CHANGES")
-    new app.DefineRequestView()
+    $('#jargon').html('')
+    new app.AllRequestsView()
   }
 
 })

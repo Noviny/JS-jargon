@@ -6,7 +6,8 @@ app.JargonView = Backbone.View.extend({
   template: $( '#jargonTemplate' ).html(),
 
   events: {
-    'click .delete': 'deleteJargon'
+    'click .delete': 'deleteJargon',
+    'click .refine': 'refineJargon'
   },
 
   deleteJargon: function() {
@@ -19,6 +20,10 @@ app.JargonView = Backbone.View.extend({
 
     //Delete view
     this.remove();
+  },
+
+  refineJargon: function() {
+    console.log("refining should occur")
   },
 
   render: function() {
