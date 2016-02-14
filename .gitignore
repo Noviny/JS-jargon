@@ -1,0 +1,7 @@
+# Private twitter info
+*config.json
+
+/package.json
+node_modules
+
+info
