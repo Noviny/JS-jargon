@@ -5,9 +5,9 @@ app.DictionaryView = Backbone.View.extend({
 
     initialize: function() {
         this.collection = new app.Dictionary();
-        var view = this
+        var view = this;
         this.collection.fetch({ success: function () {
-            console.log("rendering")
+            console.log("rendering");
             view.render();
         }});
 
@@ -21,9 +21,9 @@ app.DictionaryView = Backbone.View.extend({
     },
 
   updateSearch: function () {
-    console.log("TEST")
+    console.log("TEST");
     search = $('#search').val().toUpperCase();
-    console.log(search)
+    console.log(search);
     // var searchExp = new RegExp("^" + search)
     // var selectedVal = "";
     // var $terms = $(".defined-term")
@@ -44,12 +44,12 @@ app.DictionaryView = Backbone.View.extend({
 
     addJargon: function( e ) {
         e.preventDefault();
-        console.log("JARGON")
+        console.log("JARGON");
 
         var formData = {};
 //I do not understand what this function is doing
         $( '#addJargon div' ).children( 'input' ).each( function( i, el ) {
-            if( $( el ).val() != "" )
+            if( $( el ).val() != "" );
             {
               formData[ el.id ] = $( el ).val();
             }
@@ -60,7 +60,7 @@ app.DictionaryView = Backbone.View.extend({
 
     // render library by rendering each book in its collection
     render: function() {
-        console.log("in the render function")
+        console.log("in the render function");
         this.collection.each(function( item ) {
             // console.log(item)
             this.renderJargon( item );

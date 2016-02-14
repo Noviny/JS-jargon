@@ -23,7 +23,7 @@ app.JargonView = Backbone.View.extend({
   },
 
   refineJargon: function() {
-    console.log("refining should occur")
+    console.log("refining should occur");
   },
 
   render: function() {

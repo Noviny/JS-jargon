@@ -6,13 +6,13 @@ app.AllRequestsView = Backbone.View.extend({
   el: $( '#jargon' ),
 
   initialize: function() {
-    console.log("initializing")
+    console.log("initializing");
     this.collection = new app.Requests();
-    var view = this
+    var view = this;
     this.collection.fetch({ success: function () {
-     view.render()
+     view.render();
    }});
-    
+
 
     this.listenTo( this.collection, 'add', this.renderJargon );
     this.listenTo( this.collection, 'reset', this.render );
@@ -53,10 +53,10 @@ app.AllRequestsView = Backbone.View.extend({
     // console.log(item)
     var requestView = new app.DefineRequestView({
       model: item
-    })
-    thing = requestView
+    });
+    thing = requestView;
     // console.log(thing)
     this.$el.append( requestView.render() );
   }
 
-})
+});

@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 // Module dependencies.
@@ -5,9 +6,9 @@ var application_root = __dirname,
   express = require( 'express' ), //Web framework
   path = require( 'path' ), //Utilities for dealing with file paths
   mongoose = require( 'mongoose' ); //MongoDB integration
- 
 
-var config = require('./info/exclude/config.json')
+
+var config = require('./info/exclude/config.json');
 
 // Twittery bits
 var Twitter = require('twitter');
@@ -41,14 +42,12 @@ var thePort = process.env.PORT || 4711;
 // } else {
 	mongoose.connect( uristring, function (err, res) {
     if (err) {
-      console.log('the error is ', err, ' on ', uristring)
+      console.log('the error is ', err, ' on ', uristring);
     } else {
-      console.log('succeeded to connect to ', uristring)
+      console.log('succeeded to connect to ', uristring);
     }
   } );
 // }
-
-
 
 //Schemas
 
@@ -99,16 +98,16 @@ app.get( '/api', function( request, response ) {
 // });
 
 app.get('/twitter', function( request, response ) {
-  response.send( config.consumer_key )
+  response.send( config.consumer_key );
 });
 
 app.post('/twitter', function( request, response ) {
-  console.log('the request is ', request.body.tweet)
+  console.log('the request is ', request.body.tweet);
   client.post('statuses/update', {status: request.body.tweet }, function(error, tweet, response){
   if (!error) {
     console.log(tweet);
    } else {
-    console.log(error)
+    console.log(error);
    }
  });
 });
@@ -132,7 +131,7 @@ app.get( '/api/request', function ( req, resp ) {
     } else {
       return console.log( err );
     }
-  })
+  });
 });
 
 //Get a single book by id
@@ -153,11 +152,11 @@ app.get( '/api/request/:id', function ( req, resp ) {
     } else {
       return console.log( err );
     }
-  })
-})
+  });
+});
 
 
-//Insert a new book
+//Insert a new jargon
 app.post( '/api/jargon', function( request, response ) {
   var jargon = new JargonModel({
     term: request.body.term,
@@ -180,21 +179,23 @@ app.post( '/api/request', function ( req, resp ) {
   });
   request.save( function( err ) {
     if( !err ) {
-     var twit = "Can you define " + req.body.term + "?" + "  LINK WILL HERE BE"
+      // TODO: Make the link actually the link
+     var twit = "Can you define " + req.body.term + "?" + " " + "https://" + req.headers.host + "/" + req.body.term;
+    //  console.log('the header is ' + req.host);
     client.post('statuses/update', {status: twit}, function(error, tweet, response){
       if (!error) {
-        console.log(tweet);
+        // console.log(tweet);
       }
     });
     return console.log( 'created' );
     } else {
       return console.log( err );
     }
-    return response.send( jargon );
-  })
+    return resp.send( jargon );
+  });
 });
 
-//Update a book
+//Update a term
 app.put( '/api/jargon/:id', function( request, response ) {
   console.log( 'Updating jargon ' + request.body.term );
   return JargonModel.findById( request.params.id, function( err, jargon ) {
@@ -214,10 +215,10 @@ app.put( '/api/jargon/:id', function( request, response ) {
 });
 
 app.post( '/api/define', function(req, resp) {
-  console.log(req)
-})
+  console.log(req);
+});
 
-//Delete a book
+//Delete a term
 app.delete( '/api/jargon/:id', function( request, response ) {
   console.log( 'Deleting jargon with id: ' + request.params.id );
   return JargonModel.findById( request.params.id, function( err, jargon ) {

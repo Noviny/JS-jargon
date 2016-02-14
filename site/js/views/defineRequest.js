@@ -12,19 +12,19 @@ app.DefineRequestView = Backbone.View.extend({
 
 
     addJargonFromRequest: function (e) {
-      e.preventDefault()
+      e.preventDefault();
 
-      var toDefine = this
+      var toDefine = this;
 
-      var term = this.$('.term').html()
-      var definition = this.$('.definition').val()
+      var term = this.$('.term').html();
+      var definition = this.$('.definition').val();
       if (definition !== "") {
         this.collection = new app.Dictionary();
-        dictionary = this.collection
+        dictionary = this.collection;
         this.collection.fetch({ success: function () {
-          dictionary.create({ 'term': term, 'definition': definition })
+          dictionary.create({ 'term': term, 'definition': definition });
           // Post to twitter if a handle was left
-          
+
           if ( toDefine.model.get('tweet_at') ) {
             var tweetContent = toDefine.model.get('tweet_at') + ' ' + term + ": '" + definition + "'";
             $.ajax({
@@ -32,7 +32,7 @@ app.DefineRequestView = Backbone.View.extend({
               type: 'POST',
               dataType: 'json',
               data: { tweet: tweetContent }
-            })
+            });
           }
           //Delete the entry from the list of terms to define
             toDefine.model.destroy();
@@ -53,7 +53,7 @@ app.DefineRequestView = Backbone.View.extend({
   render: function() {
     var tmpl = _.template( this.template );
     this.$el.html( tmpl( this.model.toJSON() ) );
-    return this.$el
+    return this.$el;
   }
 
-})
+});

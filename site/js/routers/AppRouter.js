@@ -8,12 +8,12 @@ app.AppRouter = Backbone.Router.extend({
   },
 
   index: function () {
-    new app.DictionaryView()
+    new app.DictionaryView();
   },
 
   viewUndefined: function () {
-    $('#jargon').html('')
-    new app.AllRequestsView()
+    $('#jargon').html('');
+    new app.AllRequestsView();
   }
 
-})
+});
