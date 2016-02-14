@@ -4,14 +4,14 @@ var app = app || {};
 app.AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
-    'undefined' : 'viewUndefined'
+    'undefined': 'viewUndefined'
   },
 
-  index: function () {
+  index: function() {
     new app.DictionaryView();
   },
 
-  viewUndefined: function () {
+  viewUndefined: function() {
     $('#jargon').html('');
     new app.AllRequestsView();
   }
