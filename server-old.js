@@ -2,21 +2,17 @@
 /*globals ENV*/
 'use strict';
 
+// Module dependencies.
+var application_root = __dirname,
+  express = require('express'), //Web framework
+  path = require('path'), //Utilities for dealing with file paths
+  mongoose = require('mongoose'); //MongoDB integration
 
-var express = require('express');
-var path = require('path');
-var mongoose = require('mongoose');
 
-var bodyParser = require('body-parser');
-var multer = require('multer');
-var errorHandler = require('errorhandler');
-var methodOverride = require('method-override');
-
-var Twitter = require('twitter');
 var config = require('./info/exclude/config.json');
 
-
-var app = express();
+// Twittery bits
+var Twitter = require('twitter');
 
 var client = new Twitter({
   consumer_key: config.consumer_key || ENV.consumer_key,
@@ -25,7 +21,16 @@ var client = new Twitter({
   access_token_secret: config.access_token_secret || ENV.access_token_key
 });
 
+// TODO work on the twitter streaming API
+  // Check out the joys of other people's tweet bots to see how they are managing this.
+  // Make a new app that manages that if needed.
+// TODO Add passwords to the ENV on heroku
+
+//Create server
+var app = express();
+
 var mode = process.env.NODE_ENV;
+
 
 var uristring =
   process.env.MONGOLAB_URI ||
@@ -33,6 +38,13 @@ var uristring =
   // 'mongodb://heroku_t7nw9cf2:ojfbj4nj04s1vtu0uvadv5e27c@ds045001.mongolab.com:45001/heroku_t7nw9cf2'
   'mongodb://localhost/jargon_database';
 
+var thePort = process.env.PORT || 4711;
+
+//Connect to database
+// if (mode === undefined) {
+// 	mongoose.connect( 'mongodb://localhost/jargon_database' );
+
+// } else {
 mongoose.connect(uristring, function(err, res) {
   if (err) {
     console.log('the error is ', err, ' on ', uristring);
@@ -40,7 +52,7 @@ mongoose.connect(uristring, function(err, res) {
     console.log('succeeded to connect to ', uristring);
   }
 });
-
+// }
 
 //Schemas
 
@@ -59,25 +71,42 @@ var Request = new mongoose.Schema({
 
 //Models
 var JargonModel = mongoose.model('Jargon', Jargon);
+
 var RequestModel = mongoose.model('Request', Request);
 
+// Configure server
+app.configure(function() {
+  //parses request body and populates request.body
+  app.use(express.bodyParser());
 
-app.set('port', process.env.PORT || 4711);
-// app.set('views', path.join(__dirname, 'views'));
-app.use(methodOverride());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(multer({dest:'./uploads/'}).fields());
+  //checks request.body for HTTP method overrides
+  app.use(express.methodOverride());
 
-// app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'site')));
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/site/index.html'));
+  //perform route lookup based on url and HTTP method
+  app.use(app.router);
+
+  //Where to serve static content
+  app.use(express.static(path.join(application_root, 'site')));
+
+  //Show all errors in development
+  app.use(express.errorHandler({
+    dumpExceptions: true,
+    showStack: true
+  }));
 });
 
-//Paths
+// Routes
 app.get('/api', function(request, response) {
   response.send('Jargon API is running');
+});
+
+
+// app.get( '/undefined', function( request, response ) {
+// 	response.sendFile('/undefined.html')
+// });
+
+app.get('/twitter', function(request, response) {
+  response.send(config.consumer_key);
 });
 
 app.post('/twitter', function(request, response) {
@@ -92,6 +121,7 @@ app.post('/twitter', function(request, response) {
     }
   });
 });
+
 
 //Get a list of all jargon
 app.get('/api/jargon', function(request, response) {
@@ -125,6 +155,23 @@ app.get( '/api/jargon/:id', function( request, response ) {
   });
 });
 
+
+// TODO Make the bellow backbone's problem of retrieving/filtering, make it a backbone URL
+  // We can probably make one view that looks at if the term is undefined or not.
+
+// app.get('/api/request/:id', function(req, resp) {
+//   return RequestModel.findById(req.params.id, function(err, req) {
+//     if (!err) {
+//       return resp.send(req);
+//     } else {
+//       return console.log(err);
+//     }
+//   });
+// });
+
+
+// Get a single piece of jargon by name
+
 app.get('/jargon/:term', function(req, resp) {
   return JargonModel.find({
     term: "req.params.term"
@@ -136,6 +183,12 @@ app.get('/jargon/:term', function(req, resp) {
     }
   });
 });
+
+
+
+
+
+
 
 //Insert a new jargon
 app.post('/api/jargon', function(request, response) {
@@ -230,27 +283,8 @@ app.delete('/api/request/:id', function(req, resp) {
   });
 });
 
-
-
-
-if ('development' == app.get('env')) {
-  app.use(errorHandler());
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+//Start server
+var port = thePort;
+app.listen(port, function() {
+  console.log('Express server listening on port %d in %s mode', port, app.settings.env);
 });
