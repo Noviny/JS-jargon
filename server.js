@@ -145,15 +145,15 @@ app.get('/api/request', function(req, resp) {
 });
 
 //Get a single jargon by id
-// app.get( '/api/jargon/:id', function( request, response ) {
-//   return JargonModel.findById( request.params.id, function( err, jargon ) {
-//     if( !err ) {
-//       return response.send( jargon );
-//     } else {
-//       return console.log( err );
-//     }
-//   });
-// });
+app.get( '/api/jargon/:id', function( request, response ) {
+  return JargonModel.findById( request.params.id, function( err, jargon ) {
+    if( !err ) {
+      return response.send( jargon );
+    } else {
+      return console.log( err );
+    }
+  });
+});
 
 
 // TODO Make the bellow backbone's problem of retrieving/filtering, make it a backbone URL
