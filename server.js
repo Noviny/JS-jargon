@@ -18,12 +18,21 @@ var Twitter = require('twitter');
 
 var app = express();
 
+// var client = new Twitter({
+//   consumer_key: config.consumer_key || ENV.consumer_key,
+//   consumer_secret: config.consumer_secret || ENV.consumer_secret,
+//   access_token_key: config.access_token_key || ENV.access_token_key,
+//   access_token_secret: config.access_token_secret || ENV.access_token_key
+// });
+
+
 var client = new Twitter({
-  consumer_key: config.consumer_key || ENV.consumer_key,
-  consumer_secret: config.consumer_secret || ENV.consumer_secret,
-  access_token_key: config.access_token_key || ENV.access_token_key,
-  access_token_secret: config.access_token_secret || ENV.access_token_key
+  consumer_key: ENV.consumer_key,
+  consumer_secret: ENV.consumer_secret,
+  access_token_key: ENV.access_token_key,
+  access_token_secret: ENV.access_token_key
 });
+
 
 var mode = process.env.NODE_ENV;
 
