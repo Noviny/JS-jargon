@@ -13,7 +13,7 @@ var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
 
 var Twitter = require('twitter');
-var config = require('./info/exclude/config.json');
+var config = require('./info/exclude/config.json') || nil;
 
 
 var app = express();
