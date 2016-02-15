@@ -63,16 +63,18 @@ var RequestModel = mongoose.model('Request', Request);
 
 
 app.set('port', process.env.PORT || 4711);
-// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.use(methodOverride());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 // app.use(multer({dest:'./uploads/'}).fields());
 
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'site')));
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/site/index.html'));
+  res.sendFile(path.join(__dirname + '/site/index.html'));
 });
 
 //Paths
@@ -115,12 +117,12 @@ app.get('/api/request', function(req, resp) {
 });
 
 //Get a single jargon by id
-app.get( '/api/jargon/:id', function( request, response ) {
-  return JargonModel.findById( request.params.id, function( err, jargon ) {
-    if( !err ) {
-      return response.send( jargon );
+app.get('/api/jargon/:id', function(request, response) {
+  return JargonModel.findById(request.params.id, function(err, jargon) {
+    if (!err) {
+      return response.send(jargon);
     } else {
-      return console.log( err );
+      return console.log(err);
     }
   });
 });
@@ -238,19 +240,6 @@ if ('development' == app.get('env')) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(app.get('port'), function(){
+app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
