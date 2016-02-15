@@ -1,7 +1,7 @@
 var app = app || {};
 
 
-$(document).ready(function () {
+$(document).ready(function() {
   // new app.DictionaryView();
 
   app.router = new app.AppRouter();

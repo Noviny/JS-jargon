@@ -1,70 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>JS Jargon</title>
   <link rel="stylesheet" href="/css/app.css">
 </head>
+
 <body>
 
-<ul id="navbar">
-  <li class="navlink"><a href="/">Terms</a></li>
-  <li class="navlink"><a href="/">Request Term</a></li>
-  <li class="navlink"><a href="/#undefined">Undefined Terms</a></li>
-  <li class="navlink"><a href="/">Add Terms</a></li>
-</ul>
+  <ul class="navbar">
+    <li class="navlink"><a href="/">Terms</a></li>
+    <li class="navlink"><a href="/">Request Term</a></li>
+    <li class="navlink"><a href="/#undefined">Undefined Terms</a></li>
+    <li class="navlink"><a href="/">Add Terms</a></li>
+  </ul>
 
 
 
 
   <h1>JS Jargon Dictionary</h1>
 
-<div id="main">
+  <div class="main">
 
-<h3>Search Term</h3>
-<input id="search" type="text">
+    <h3>Search Term</h3>
+    <input id="search" type="text">
 
-<h3>Request Term</h3>
-<div id="request">
-  <form action="/api/request" method="post">
-    <span class="var">var</span>  <input id="term" name="term" type="text" />  <span class="equals-sign">=</span>  <span class="undefined">not defined</span><br />
-    Leave your twitter handle and we'll tweet you when it's defined: 
-    <input id="twitter-handle" name="twitterhandle" type="text">
-    <button>Request</button>
-  </form>
-</div>
-
-<h3>Add new term:</h3>
-<div id="terms">
-    <form id="addJargon" action="/api/jargon" method="post">
-        <div>
-            <label for="term"><span class="var">var</span>  </label><input id="term" name="term" type="text" />
-            <label for="definition">  <span class="equals-sign">=</span>  </label><input id="definition" name="definition" type="text" />
-            <button id="add">Add</button>
-        </div>
-    </form>
-</div>
-
-
-<p>Term List:</p>
-<div id="jargon"></div>
-</div>
-
-<script id="jargonTemplate" type="text/template">
-  <div class="defined-term">
-  <p class="display-term"><span class="var">var</span> <span class="term"><%= term %></span> <span class="equals-sign">=</span> <span class="definition"><%= definition %></span></p><button id="<%= _id %>" class="refine">Refine</button>
-  </div>
-</script>
-
-<script id="addTemplate" type="text/template">
-  <form class="jargonFromRequest" action="/api/jargon" method="post" id="<%= id %>">
-    <div>
-        <label for="term"><span class="var">var</span>  </label><span class="term"><%= term %></span>
-        <label for="definition">  <span class="equals-sign">=</span>  </label><input class="definition" name="definition" type="text" />
-        <button class="define">Define</button>
+    <h3>Request Term</h3>
+    <div id="request">
+      <form action="/api/request" method="post">
+        <span class="var">var</span>
+        <input id="term" name="term" type="text" /> <span class="equals-sign">=</span> <span class="undefined">not defined</span>
+        <br /> Leave your twitter handle and we'll tweet you when it's defined:
+        <input id="twitter-handle" name="twitterhandle" type="text">
+        <button>Request</button>
+      </form>
     </div>
-  </form>
-</script>
+
+    <h3>Add new term:</h3>
+    <div id="terms">
+      <form id="addJargon" action="/api/jargon" method="post">
+        <div>
+          <label for="term"><span class="var">var</span> </label>
+          <input class="term" name="term" type="text" />
+          <label for="definition"> <span class="equals-sign">=</span> </label>
+          <input class="define-input" name="definition" type="text" />
+          <button id="add">Add</button>
+        </div>
+      </form>
+    </div>
+
+
+    <p>Term List:</p>
+    <div class="jargon"></div>
+    <table id="jargon2"></table>
+  </div>
+
+  <script id="jargonTemplate2" type="text/template">
+      <td class="var">var</td>
+      <td class="term"><%= term %></td>
+      <td class="equals-sign">=</td>
+      <td class="definition"><%= definition %></td>
+      <td ><button class="refine">Refine</button></td>
+      <td ><button class="delete">Delete</button></td>
+  </script>
+
+  <script id="addTemplate" type="text/template">
+    <form class="jargonFromRequest" action="/api/jargon" method="post" id="<%= id %>">
+      <div>
+        <label for="term"><span class="var">var</span> </label><span class="term"><%= term %></span>
+        <label for="definition"> <span class="equals-sign">=</span> </label>
+        <input class="definition" name="definition" type="text" />
+        <button class="define">Define</button>
+      </div>
+    </form>
+  </script>
 
 
   <script src="js/lib/jquery.js"></script>
@@ -81,4 +91,5 @@
   <script src="js/routers/AppRouter.js"></script>
   <script src="js/app.js"></script>
 </body>
+
 </html>

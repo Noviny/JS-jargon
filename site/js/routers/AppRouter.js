@@ -12,7 +12,7 @@ app.AppRouter = Backbone.Router.extend({
   },
 
   viewUndefined: function() {
-    $('#jargon').html('');
+    $('#jargon2').html('');
     new app.AllRequestsView();
   }
 

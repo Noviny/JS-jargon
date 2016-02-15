@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+/*globals ENV*/
 'use strict';
 
 // Module dependencies.
@@ -14,16 +15,16 @@ var config = require('./info/exclude/config.json');
 var Twitter = require('twitter');
 
 var client = new Twitter({
-  consumer_key: config.consumer_key,
-  consumer_secret: config.consumer_secret,
-  access_token_key: config.access_token_key,
-  access_token_secret: config.access_token_secret
+  consumer_key: config.consumer_key || ENV.consumer_key,
+  consumer_secret: config.consumer_secret || ENV.consumer_secret,
+  access_token_key: config.access_token_key || ENV.access_token_key,
+  access_token_secret: config.access_token_secret || ENV.access_token_key
 });
 
 // TODO work on the twitter streaming API
   // Check out the joys of other people's tweet bots to see how they are managing this.
   // Make a new app that manages that if needed.
-// TODO Remove passwords so this can be deployed to github.
+// TODO Add passwords to the ENV on heroku
 
 //Create server
 var app = express();
@@ -154,25 +155,29 @@ app.get('/api/request', function(req, resp) {
 //   });
 // });
 
-app.get('/api/request/:id', function(req, resp) {
-  return RequestModel.findById(req.params.id, function(err, req) {
-    if (!err) {
-      return resp.send(req);
-    } else {
-      return console.log(err);
-    }
-  });
-});
+
+// TODO Make the bellow backbone's problem of retrieving/filtering, make it a backbone URL
+  // We can probably make one view that looks at if the term is undefined or not.
+
+// app.get('/api/request/:id', function(req, resp) {
+//   return RequestModel.findById(req.params.id, function(err, req) {
+//     if (!err) {
+//       return resp.send(req);
+//     } else {
+//       return console.log(err);
+//     }
+//   });
+// });
 
 
 // Get a single piece of jargon by name
 
 app.get('/jargon/:term', function(req, resp) {
-  return RequestModel.find({
-    "term": "jQuery"
+  return JargonModel.find({
+    term: "req.params.term"
   }, function(err, jargon) {
     if (!err) {
-      return resp.send(jargon);
+      return resp.send(jargon + " " + req.params.term);
     } else {
       return console.log(err);
     }
