@@ -8,6 +8,19 @@ h1 {
   text-align: center;
 }
 
+button {
+  border: none;
+  color: hsl(107, 40%, 57%);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  background-color: hsl(228, 7%, 12%);
+}
+
+td {
+  padding: 0.3rem
+}
+
 .main {
   width: 70%;
   margin: auto;
@@ -57,7 +70,7 @@ h1 {
   width: 400px;
 }
 
-.term {
+.term, #request-term, #twitter-handle {
   text-align: center;
 }
 
@@ -111,12 +124,18 @@ h1 {
 
 
 .jargonFormRequest {
-  padding: 0.3em
+  padding: 0.5em
 }
 
 
 .jargonFormRequest .term {
-  width: 10%;
+  display: inline-block;
+  width: 15%
+}
+
+.jargonFormRequest .equals-sign {
+  display: inline-block;
+  width: 4%
 }
 
 .jargonFormRequest .definition {
@@ -124,10 +143,5 @@ h1 {
 }
 
 .jargonFormRequest button {
-  float: right;
   margin-left: 1rem;
-}
-
-td {
-  padding: 0.3rem
 }

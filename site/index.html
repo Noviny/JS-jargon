@@ -11,9 +11,7 @@
 
   <ul class="navbar">
     <li class="navlink"><a href="/">Terms</a></li>
-    <li class="navlink"><a href="/">Request Term</a></li>
     <li class="navlink"><a href="/#undefined">Undefined Terms</a></li>
-    <li class="navlink"><a href="/">Add Terms</a></li>
   </ul>
 
 
@@ -32,35 +30,38 @@
 
   <!-- Templates below here -->
 
-  <script id="main-div-form" type="text/template">
-  <h3>Search Term</h3>
-  <input id="search" type="text">
+<!-- TODO: add this sucker back in once we have a long list -->
+  <!-- <h3>Search Term</h3>
+  <input id="search" type="text"> -->
 
-  <h3>Request Term</h3>
+  <script id="main-div-form" type="text/template">
+  <h3>Request Definition</h3>
   <div id="request">
     <form action="/api/request" method="post" id="request-form">
       <span class="var">var</span>
-      <input id="request-term" name="term" type="text" /> <span class="equals-sign">=</span> <span class="undefined">not defined</span>
+      <input id="request-term" name="term" type="text" placeholder="jargon" />
       <br /> Leave your twitter handle and we'll tweet you when it's defined:
-      <input id="twitter-handle" name="twitterhandle" type="text">
+      <input id="twitter-handle" name="twitterhandle" type="text" placeholder="@you">
       <button>Request</button>
     </form>
   </div>
 
 
-  <h3>Add new term:</h3>
+  <h3>Add new term</h3>
   <div id="terms">
     <form id="addJargon" action="/api/jargon" method="post">
       <div>
         <label for="term"><span class="var">var</span> </label>
-        <input class="term" name="term" type="text" />
+        <input class="term" name="term" type="text" placeholder="jargon" />
         <label for="definition"> <span class="equals-sign">=</span> </label>
         <input class="define-input" name="definition" type="text" />
         <button id="add">Add</button>
       </div>
     </form>
   </div>
+
   </script>
+
 
   <script id="jargonTemplate2" type="text/template">
       <td class="var">var</td>
