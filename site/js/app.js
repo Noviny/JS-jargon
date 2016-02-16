@@ -11,4 +11,7 @@ $(document).ready(function() {
 
   app.router = new app.AppRouter();
   Backbone.history.start();
+
+  var appView = new app.AppView();
+  appView.render();
 });

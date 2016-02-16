@@ -28,9 +28,8 @@ app.DefineRequestView = Backbone.View.extend({
             'definition': definition
           });
           // Post to twitter if a handle was left
-
-          if (toDefine.model.get('tweet_at')) {
-            var tweetContent = toDefine.model.get('tweet_at') + ' ' + term + ": '" + definition + "'";
+          if (toDefine.model.get('tweethandle')) {
+            var tweetContent = '@' + toDefine.model.get('tweethandle') + ' ' + term + ": '" + definition + "'";
             $.ajax({
               url: 'twitter',
               type: 'POST',
@@ -43,8 +42,6 @@ app.DefineRequestView = Backbone.View.extend({
           //Delete the entry from the list of terms to define
           toDefine.model.destroy();
           toDefine.remove();
-
-
         }
       });
     }

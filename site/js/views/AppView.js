@@ -22,17 +22,28 @@ app.AppView = Backbone.View.extend({
     console.log("Will request a new term");
     var term = this.$('#request-term').val();
     var handle = this.$('#twitter-handle').val();
+    handle = handle.replace(/@/, '');
+    console.log(handle)
 
     if ( term !== "" ) {
       app.requests.create({
         'term': term,
-        'tweet_at': handle || undefined
+        'tweethandle': handle
       });
 
-      var tweetContent = 'can anyone define ' + handle + '?' + 'LINKGOESHERE'
+      var tweetContent = "can you define '" + term + "' ?" + 'js-jargon.herokuapp.com/#jargon/' + term
+
+      //TODO uncomment bellow to re-enable tweeting
+      $.ajax({
+        url: 'twitter',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          tweet: tweetContent
+        }
+      });
+
       //TODO alert to notify that request has been made
-      //TODO tweet the request from here
-      //TODO check the tweet handle
     }
   },
 

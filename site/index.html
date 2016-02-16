@@ -72,12 +72,13 @@
   </script>
 
   <script id="addTemplate" type="text/template">
-    <form class="jargonFromRequest" action="/api/jargon" method="post" id="<%= id %>">
+    <form class="jargonFormRequest" action="/api/jargon" method="post" id="<%= id %>">
       <div>
         <label for="term"><span class="var">var</span> </label><span class="term"><%= term %></span>
         <label for="definition"> <span class="equals-sign">=</span> </label>
         <input class="definition" name="definition" type="text" />
         <button class="define">Define</button>
+        <button class="delete">Delete</button>
       </div>
     </form>
   </script>

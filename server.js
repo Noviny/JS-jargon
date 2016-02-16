@@ -67,7 +67,7 @@ var Jargon = new mongoose.Schema({
 var Request = new mongoose.Schema({
   term: String,
   definition: String,
-  tweet_at: String
+  tweethandle: String
 });
 
 //Models
@@ -96,7 +96,6 @@ app.get('/api', function(request, response) {
 });
 
 app.post('/twitter', function(request, response) {
-  console.log('the request is ', request.body.tweet);
   client.post('statuses/update', {
     status: request.body.tweet
   }, function(error, tweet, response) {
@@ -171,20 +170,11 @@ app.post('/api/jargon', function(request, response) {
 app.post('/api/request', function(req, resp) {
   var request = new RequestModel({
     term: req.body.term,
-    tweet_at: req.body.twitterhandle
+    tweethandle: req.body.tweethandle || "noviny"
   });
   request.save(function(err) {
     if (!err) {
       // TODO: Make the new path for a specific jargon term return the term
-      var twit = "Can you define " + req.body.term + "?" + " " + "https://" + req.headers.host + "/jargon/" + req.body.term;
-      //  console.log('the header is ' + req.host);
-      client.post('statuses/update', {
-        status: twit
-      }, function(error, tweet, response) {
-        if (!error) {
-          // console.log(tweet);
-        }
-      });
       return console.log('created');
     } else {
       return console.log(err);
@@ -203,7 +193,7 @@ app.put('/api/jargon/:id', function(request, response) {
 
     return jargon.save(function(err) {
       if (!err) {
-        console.log('book updated');
+        console.log('jargon updated');
       } else {
         console.log(err);
       }
@@ -244,9 +234,6 @@ app.delete('/api/request/:id', function(req, resp) {
     });
   });
 });
-
-
-
 
 if ('development' == app.get('env')) {
   app.use(errorHandler());
