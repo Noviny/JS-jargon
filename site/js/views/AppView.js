@@ -20,15 +20,16 @@ app.AppView = Backbone.View.extend({
   addNewRequest: function(e) {
     e.preventDefault();
     console.log("Will request a new term");
-
     var term = this.$('#request-term').val();
     var handle = this.$('#twitter-handle').val();
 
     if ( term !== "" ) {
       app.requests.create({
         'term': term,
-        'tweethandle': handle || undefined
+        'tweet_at': handle || undefined
       });
+
+      var tweetContent = 'can anyone define ' + handle + '?' + 'LINKGOESHERE'
       //TODO alert to notify that request has been made
       //TODO tweet the request from here
       //TODO check the tweet handle
