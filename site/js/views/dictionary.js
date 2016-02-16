@@ -17,51 +17,10 @@ app.DictionaryView = Backbone.View.extend({
     this.listenTo(this.collection, 'reset', this.render);
   },
 
-  events: {
-    'click #add': 'addJargon',
-    'keyup #search': 'updateSearch'
-  },
-
-  updateSearch: function() {
-    console.log("TEST");
-    search = $('#search').val().toUpperCase();
-    console.log(search);
-    // var searchExp = new RegExp("^" + search)
-    // var selectedVal = "";
-    // var $terms = $(".defined-term")
-    // $.each($terms, function (index, el) {
-    //   var val = $(this).find("."+selectedVal).text();
-    //   console.log(val)
-    //   if ( searchExp.test(val) ) {
-    //     $(this).removeClass("hidden")
-    //   } else {
-    //     $(this).addClass("hidden")
-    //   }
-    // });
-    // console.log(selectedVal + ' ' + search);
-  },
-
-
-
-
-  addJargon: function(e) {
-    e.preventDefault();
-    console.log("JARGON");
-
-    var formData = {};
-    //I do not understand what this function is doing
-    $('#addJargon div').children('input').each(function(i, el) {
-      if ($(el).val() !== ""); {
-        formData[el.id] = $(el).val();
-      }
-    });
-
-    this.collection.create(formData);
-  },
-
   // render library by rendering each book in its collection
   render: function() {
-    console.log("in the render function");
+    this.$el.html('')
+    $('#jargon').html('')
     this.collection.each(function(item) {
       // console.log(item)
       this.renderJargon(item);
