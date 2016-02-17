@@ -17,25 +17,25 @@ var Twitter = require('twitter');
 var app = express();
 
 
-if ('production' == app.get('env')) {
+// if ('production' == app.get('env')) {
   var client = new Twitter({
     consumer_key: process.env.consumer_key,
     consumer_secret: process.env.consumer_secret,
     access_token_key: process.env.access_token_key,
     access_token_secret: process.env.access_token_key
   });
-}
-
-if ('development' == app.get('env')) {
-  var config = require('./info/exclude/config.json');
-
-  var client = new Twitter({
-    consumer_key: config.consumer_key,
-    consumer_secret: config.consumer_secret,
-    access_token_key: config.access_token_key,
-    access_token_secret: config.access_token_secret
-  });
-}
+// }
+//
+// if ('development' == app.get('env')) {
+//   var config = require('./info/exclude/config.json');
+//
+//   var client = new Twitter({
+//     consumer_key: config.consumer_key,
+//     consumer_secret: config.consumer_secret,
+//     access_token_key: config.access_token_key,
+//     access_token_secret: config.access_token_secret
+//   });
+// }
 
 
 var mode = process.env.NODE_ENV;
