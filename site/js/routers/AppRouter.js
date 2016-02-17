@@ -4,7 +4,8 @@ var app = app || {};
 app.AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
-    'undefined': 'viewUndefined'
+    'undefined': 'viewUndefined',
+    'jargon/:term': 'singleTermView'
   },
 
   index: function() {
@@ -14,6 +15,12 @@ app.AppRouter = Backbone.Router.extend({
   viewUndefined: function() {
     $('#jargon2').html('');
     new app.AllRequestsView();
+  },
+
+  singleTermView: function(term) {
+    $('#jargon').html('');
+    $('#jargon2').html('')
+    new app.SingleRequestView();
   }
 
 });
