@@ -28,7 +28,7 @@ var app = express();
 //
 // if ('development' == app.get('env')) {
 //   var config = require('./info/exclude/config.json');
-//
+// //
 //   var client = new Twitter({
 //     consumer_key: config.consumer_key,
 //     consumer_secret: config.consumer_secret,

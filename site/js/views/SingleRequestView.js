@@ -8,14 +8,14 @@ app.SingleRequestView = Backbone.View.extend({
     app.requestsnew = new app.Requests();
     app.requestsnew.fetch({
       success: function () {
-        var request = app.requestsnew.where({'term': 'fallacy'})
+        var request = app.requestsnew.findWhere({'term': 'fallacy'})
         console.log(request)
         var requestView = new app.DefineRequestView({
           model: request
         });
         console.log(requestView)
 
-        this.$el.append(requstView.render())
+        $('#jargon').append(requestView.render())
       }
     })
   },
